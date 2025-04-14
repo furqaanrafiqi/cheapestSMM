@@ -1,0 +1,33 @@
+function doPost(e) {
+  try {
+    // Parse the incoming data
+    var data = JSON.parse(e.postData.contents);
+    
+    // Get the active sheet
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Add data to sheet
+    sheet.appendRow([
+      data.timestamp,
+      data.username,
+      data.utrNumber,
+      data.packageType,
+      data.quantity,
+      data.price
+    ]);
+    
+    // Return success response
+    return ContentService.createTextOutput(JSON.stringify({
+      'result': 'success'
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    // Log the error
+    console.error("Error processing request: " + error);
+    
+    // Return error response
+    return ContentService.createTextOutput(JSON.stringify({
+      'result': 'error',
+      'message': error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}

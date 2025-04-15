@@ -87,19 +87,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 
                 // Google Sheet Apps Script URL
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbweKBVwvhY5fMFWvV9_fr9qzTZW7VxfXlcqnRqH1VN3cV9oZMtJMDodskfu7kKMRWDE/exec';
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbxia56V-xg3iag_2mGRAX-B4j5ZIM3btkqzScoTZrMi5_yuhKDCGF2E1LP2c05Bh4ZP1w/exec';
                 
                 // Log the data being sent (for debugging)
                 console.log("Sending data to Google Sheets:", formData);
                 
-                // Send data to Google Sheets
+                const formDataURL = new URLSearchParams();
+                Object.keys(formData).forEach(key => {
+                    formDataURL.append(key, formData[key]);
+                });
+
                 fetch(scriptURL, {
                     method: 'POST',
-                    body: JSON.stringify(formData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'no-cors' // Important for Google Apps Script
+                    body: formDataURL,
+                    mode: 'no-cors'
                 })
                 .then(response => {
                     console.log("Response received", response);
@@ -150,20 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (formTitle) {
                         formTitle.innerHTML = 'Complete Your Purchase';
                     }
-                }, 2000); // 2 second delay to simulate API call
-                
-                /* When you're ready to connect to an actual Google Sheet, replace the setTimeout with:
-                
-                fetch(scriptURL, {
-                    method: 'POST',
-                    body: JSON.stringify(formData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'no-cors'
-                })
-                .then(() => {
-                    // All the success message code from above
                 })
                 .catch(error => {
                     console.error('Error submitting form:', error);
@@ -171,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.disabled = false;
                     alert('There was an error submitting your order. Please try again or contact support.');
                 });
-                */
             } else {
                 // Show error shake animation on submit button
                 const submitBtn = document.querySelector('.submit-btn');

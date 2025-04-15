@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get form elements
             const instagramInput = document.getElementById('instagram-URL');
             const utrInput = document.getElementById('utr-number');
+            const emailInput = document.getElementById('email');
             
-            if (!instagramInput || !utrInput) return;
+            if (!instagramInput || !utrInput || !emailInput) return;
             
             let isValid = true;
             if (instagramInput.value.trim() === '') {
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     timestamp: new Date().toISOString(),
                     username: instagramInput.value,
                     utrNumber: utrInput.value,
+                    email: emailInput.value,
                     packageType: packageType || 'Not specified',
                     quantity: quantity || 'Not specified',
                     price: price || 'Not specified'

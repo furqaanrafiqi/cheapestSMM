@@ -279,7 +279,8 @@ header {
     color: var(--neon-purple);
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"] {
     width: 100%;
     padding: 15px 20px 15px 45px;
     border-radius: 30px;
@@ -290,14 +291,16 @@ input[type="text"] {
     transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="email"]:focus {
     outline: none;
     border-color: var(--neon-purple);
     box-shadow: 0 0 10px rgba(181, 55, 242, 0.5);
     background-color: rgba(16, 19, 43, 1);
 }
 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
 
